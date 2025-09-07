@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../../app";
+import { getProducts, deleteProduct } from "../../app";
+import { AddProductForm } from "../form";
 
-const ProductList = () => {
+const ProductList = (props: any) => {
   const [products, setProducts] = useState<any[]>([]);
+  // const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
@@ -27,6 +29,10 @@ const ProductList = () => {
 
   return (
     <div>
+      <AddProductForm
+        showModal={props.showModal}
+        closeModal={props.closeModal}
+      />
       <h1>Список продуктів</h1>
       {loading && <p>Завантаження...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}{" "}
@@ -53,6 +59,14 @@ const ProductList = () => {
                   <span>Ціна не вказана</span>
                 )}
               </p>
+              <button
+                onClick={async () => {
+                  await deleteProduct(product._id);
+                  window.location.reload();
+                }}
+              >
+                Видалити {product._id}
+              </button>
             </li>
           ))}
       </ul>

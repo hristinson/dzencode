@@ -1,29 +1,31 @@
 import axios from "axios";
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export const addProduct = async () => {
-  const newProduct = {
-    id: Date.now(),
-    serialNumber: 1234,
-    isItNew: 1,
-    photo: "pathToFile.jpg",
-    title: "Product 1",
-    type: "Monitors",
-    specification: "Specification",
+export const addProduct = async (productData: Record<string, any>) => {
+  type newProduct = {
+    id: any;
+    serialNumber: string;
+    isItNew: 1;
+    photo: string;
+    title: string;
+    type: string;
+    specification: string;
     guarantee: {
-      start: new Date().toISOString(),
-      end: new Date().toISOString(),
-    },
+      start: any;
+      end: any;
+    };
     price: [
-      { value: 100, symbol: "USD", isDefault: 1 },
-      { value: 2500, symbol: "UAH", isDefault: 0 },
-    ],
-    order: 1,
-    date: new Date().toISOString(),
+      { value: number; symbol: "USD"; isDefault: 1 },
+      { value: number; symbol: "UAH"; isDefault: 0 }
+    ];
+    order: 1;
+    date: any;
   };
-
   try {
-    const response = await axios.post(`${apiUrl}postproducts`, newProduct);
+    const response = await axios.post(
+      `${apiUrl}postproducts`,
+      productData as newProduct
+    );
     console.log("Product added successfully:", response.data);
   } catch (error) {
     console.error("Error adding product", error);
@@ -38,5 +40,21 @@ export const getProducts = async () => {
     return response.data;
   } catch (error) {
     console.error("Error fetching products", error);
+  }
+};
+
+export const deleteProduct = async (productId: string) => {
+  try {
+    const response = await axios.delete(`${apiUrl}deleteproduct`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        _id: productId, // Надсилаємо ID продукту для видалення
+      },
+    });
+    console.log("Product deleted successfully:", response.data);
+  } catch (error) {
+    console.error("Error deleting product", error);
   }
 };
