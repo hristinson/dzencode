@@ -1,7 +1,22 @@
-/* Центральний контент, що займає весь вільний простір */
 .list {
-  flex-grow: 1; /* Займає весь вільний простір */
+  flex-grow: 1;
   background-color: #f4f4f4;
   padding: 20px;
   text-align: center;
+}
+
+.list-my {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100%;
+  padding: 10px;
+}
+
+.add-button-container {
+  width: 100%;
+  align-items: flex-end;
+  display: flex !important;
+  justify-content: flex-end;
+  margin: -10px 25px 10px 0px;
 }

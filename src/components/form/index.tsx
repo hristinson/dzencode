@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { addProduct } from "../../api";
 import { newProduct } from "../../models";
+import { useTranslation } from "react-i18next";
+import "./index.scss";
 
 interface AddProductFormProps {
   showModal: boolean;
@@ -8,10 +10,11 @@ interface AddProductFormProps {
 }
 
 export const AddProductForm = (props: AddProductFormProps) => {
+  const { t } = useTranslation();
   const [productData, setProductData] = useState<newProduct>({
     serialNumber: "",
     isItNew: "",
-    photo: "",
+    photo: "test.jpg",
     title: "",
     type: "",
     specification: "",
@@ -20,8 +23,8 @@ export const AddProductForm = (props: AddProductFormProps) => {
       end: new Date().toISOString(),
     },
     price: [
-      { value: "", symbol: "USD", isDefault: 1 },
-      { value: "", symbol: "UAH", isDefault: 0 },
+      { value: 0, symbol: "USD", isDefault: 1 },
+      { value: 0, symbol: "UAH", isDefault: 0 },
     ],
     date: new Date().toISOString(),
   });
@@ -31,10 +34,41 @@ export const AddProductForm = (props: AddProductFormProps) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setProductData({
-      ...productData,
-      [name]: value,
-    });
+    switch (name) {
+      case "guaranteeStart":
+        setProductData({
+          ...productData,
+          guarantee: {
+            ...productData.guarantee,
+            start: value,
+          },
+        });
+        break;
+      case "guaranteeEnd":
+        setProductData({
+          ...productData,
+          guarantee: {
+            ...productData.guarantee,
+            end: value,
+          },
+        });
+        break;
+      case "price_value_usd":
+        setProductData({
+          ...productData,
+          price: [
+            { value: parseInt(value), symbol: "USD", isDefault: 1 },
+            { value: 0, symbol: "UAH", isDefault: 0 },
+          ],
+        });
+        break;
+      default:
+        setProductData({
+          ...productData,
+          [name]: value,
+        });
+        break;
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -54,107 +88,120 @@ export const AddProductForm = (props: AddProductFormProps) => {
   };
 
   return (
-    <dialog open={props.showModal}>
-      <h1>Додати продукт</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Serial Number:</label>
-          <input
-            type="number"
-            name="serialNumber"
-            value={productData.serialNumber}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Is it New:</label>
-          <input
-            type="number"
-            name="isItNew"
-            value={productData.isItNew}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Photo:</label>
-          <input
-            type="text"
-            name="photo"
-            value={productData.photo}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Title:</label>
-          <input
-            type="text"
-            name="title"
-            value={productData.title}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Type:</label>
-          <input
-            type="text"
-            name="type"
-            value={productData.type}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Specification:</label>
-          <input
-            type="text"
-            name="specification"
-            value={productData.specification}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Guarantee Start Date:</label>
-          <input
-            type="date"
-            name="guaranteeStart"
-            value={productData.guarantee.start}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Guarantee End Date:</label>
-          <input
-            type="date"
-            name="guaranteeEnd"
-            value={productData.guarantee.end}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Price (USD):</label>
-          <input
-            type="number"
-            name="price[0].value"
-            value={productData.price[0].value}
-            onChange={handleChange}
-          />
-        </div>
+    <div>
+      {props.showModal && <div className="modal-backdrop fade show"></div>}
+      <dialog open={props.showModal} className="dialog">
+        <p className="dialog-header">{t("please_input_data")}</p>
+        <form onSubmit={handleSubmit} className="modal-content">
+          <div className="container">
+            <div>
+              <div className="form-group">
+                <label>Serial Number:</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="serialNumber"
+                  value={productData.serialNumber}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label>Is it New:</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="isItNew"
+                  value={productData.isItNew}
+                  onChange={handleChange}
+                />
+              </div>
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Додається..." : "Додати продукт"}
-        </button>
-        <button
-          type="submit"
-          disabled={loading}
-          onClick={(e) => {
-            e.preventDefault();
-            props.closeModal();
-          }}
-        >
-          {"Close"}
-        </button>
-      </form>
+              <div>
+                <label>Title:</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="title"
+                  value={productData.title}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label>Type:</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="type"
+                  value={productData.type}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div>
+              <div>
+                <label>Specification:</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="specification"
+                  value={productData.specification}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label>Guarantee Start Date:</label>
+                <input
+                  className="form-control"
+                  type="date"
+                  name="guaranteeStart"
+                  value={productData.guarantee.start}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label>Guarantee End Date:</label>
+                <input
+                  className="form-control"
+                  type="date"
+                  name="guaranteeEnd"
+                  value={productData.guarantee.end}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <label>Price (USD):</label>
+                <input
+                  className="form-control"
+                  type="number"
+                  name="price_value_usd"
+                  value={productData.price[0].value}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+          </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn btn-success btn-sm my-btn"
+          >
+            {loading ? t("adding") : t("add_new_product")}
+          </button>
+          <button
+            className="btn btn-secondary btn-sm"
+            type="submit"
+            disabled={loading}
+            onClick={(e) => {
+              e.preventDefault();
+              props.closeModal();
+            }}
+          >
+            {"Close"}
+          </button>
+        </form>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </dialog>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+      </dialog>
+    </div>
   );
 };

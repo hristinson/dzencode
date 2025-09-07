@@ -2,5 +2,8 @@
   "products_list": "Products List",
   "no_avialable_products": "No avialable products",
   "footer_text": "Version: ",
-  "inventory": "INVENTORY"
+  "inventory": "INVENTORY",
+  "please_input_data": "Please input data",
+  "adding": "Adding...",
+  "add_new_product": "Add a new product"
 }

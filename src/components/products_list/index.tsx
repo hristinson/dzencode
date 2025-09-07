@@ -36,48 +36,56 @@ const ProductList = (props: any) => {
   }, []);
 
   return (
-    <div className="list">
-      <button onClick={() => setIsShowModal(true)}>Add</button>
+    <>
       <AddProductForm showModal={idShowModal} closeModal={closeModal} />
-      <h1>{t("products_list")}</h1>
-      {loading && <p>loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}{" "}
-      {products && products.length === 0 && !loading && (
-        <p>{t("no_avialable_products")}</p>
-      )}
-      <ul>
+      <div className="list list-group">
+        <div className="add-button-container">
+          <button
+            onClick={() => setIsShowModal(true)}
+            className="btn btn-success btn-sm"
+          >
+            Add
+          </button>
+        </div>
+        <div className="list-group-item list-group-item-action list-my">
+          <div>{t("date")}</div>
+          <div>{t("title")}</div>
+          <div>{t("type")}</div>
+          <div>{t("specification")}</div>
+          <div>{t("guarantie_start")}</div>
+          <div>{t("guarantie_end")}</div>
+          <div>{t("serial")}</div>
+          <div>{t("specifitation")}</div>
+          <div></div>
+        </div>
         {products &&
-          products.map((product) => (
-            <li key={product.id}>
-              <h3>{product.title}</h3>
-              <p>{product.type}</p>
-              <p>{product.specification}</p>
-              <p>
-                Ціна:
-                {product.price && product.price.length > 0 ? (
-                  product.price.map((priceItem: any, index: number) => (
-                    <span key={index}>
-                      {priceItem.value} {priceItem.symbol}
-                      {index < product.price.length - 1 && ", "}
-                    </span>
-                  ))
-                ) : (
-                  <span>Ціна не вказана</span>
-                )}
-              </p>
-              <button
-                onClick={async () => {
-                  await deleteProduct(product._id);
-                  window.location.reload();
-                }}
-              >
-                Видалити {product._id}
-              </button>
-            </li>
-          ))}
-      </ul>
-    </div>
+          products.map((product) => {
+            return (
+              <div className="list-group-item list-group-item-action list-my">
+                <div>{product.date}</div>
+                <div>{product.title}</div>
+                <div>{product.type}</div>
+                <div>{product.specification}</div>
+                <div>{product.guarantee.start}</div>
+                <div>{product.guarantee.end}</div>
+                <div>{product.serialNumber}</div>
+                <div>{product.specification}</div>
+
+                <button
+                  type="button"
+                  className="btn btn-success btn-sm"
+                  onClick={async () => {
+                    await deleteProduct(product._id);
+                    window.location.reload();
+                  }}
+                >
+                  Видалити
+                </button>
+              </div>
+            );
+          })}
+      </div>
+    </>
   );
 };
-
 export default ProductList;

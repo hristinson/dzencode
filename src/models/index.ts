@@ -10,8 +10,8 @@ export type newProduct = {
     end: any;
   };
   price: [
-    { value: string; symbol: "USD"; isDefault: 1 },
-    { value: string; symbol: "UAH"; isDefault: 0 }
+    { value: number; symbol: "USD"; isDefault: 1 },
+    { value: number; symbol: "UAH"; isDefault: 0 }
   ];
   date: any;
 };

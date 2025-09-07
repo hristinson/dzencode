@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema({
-  serialNumber: Number,
-  isItNew: Number,
+  serialNumber: String,
+  isItNew: String,
   photo: String,
   title: String,
   type: String,
