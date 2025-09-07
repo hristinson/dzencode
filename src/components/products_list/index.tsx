@@ -1,41 +1,38 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../../app"; // Імпортуємо вашу функцію для отримання продуктів
+import { getProducts } from "../../app";
 
 const ProductList = () => {
-  const [products, setProducts] = useState<any[]>([]); // Стан для зберігання продуктів
-  const [loading, setLoading] = useState<boolean>(true); // Стан для відображення індикатора завантаження
-  const [error, setError] = useState<string>(""); // Стан для зберігання повідомлень про помилки
+  const [products, setProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
 
-  // Функція для отримання продуктів
   const fetchProducts = async () => {
     try {
-      setLoading(true); // Починаємо завантаження
-      setError(""); // Очищаємо попередні помилки
+      setLoading(true);
+      setError("");
 
-      const products = await getProducts(); // Викликаємо локальну функцію getProducts
-      setProducts(products.products); // Зберігаємо отримані продукти в стан
+      const products = await getProducts();
+      setProducts(products.products);
     } catch (err) {
       console.error("Error fetching products:", err);
       setError("Не вдалося отримати продукти. Спробуйте ще раз.");
     } finally {
-      setLoading(false); // Завершуємо завантаження
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchProducts(); // Викликаємо функцію для отримання продуктів при завантаженні компонента
-  }, []); // Порожній масив залежностей означає, що функція викликається тільки один раз при завантаженні компонента
+    fetchProducts();
+  }, []);
 
   return (
     <div>
       <h1>Список продуктів</h1>
-      {loading && <p>Завантаження...</p>} {/* Індикатор завантаження */}
+      {loading && <p>Завантаження...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}{" "}
-      {/* Повідомлення про помилки */}
       {products && products.length === 0 && !loading && (
         <p>Немає доступних продуктів.</p>
-      )}{" "}
-      {/* Повідомлення, якщо немає продуктів */}
+      )}
       <ul>
         {products &&
           products.map((product) => (
@@ -45,7 +42,7 @@ const ProductList = () => {
               <p>{product.specification}</p>
               <p>
                 Ціна:
-                {product.price && product.price.length > 0 ? ( // Перевірка на undefined або порожній масив
+                {product.price && product.price.length > 0 ? (
                   product.price.map((priceItem: any, index: number) => (
                     <span key={index}>
                       {priceItem.value} {priceItem.symbol}

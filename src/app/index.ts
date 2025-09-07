@@ -1,10 +1,9 @@
 import axios from "axios";
 const apiUrl = process.env.REACT_APP_API_URL;
 
-// Це наша основна функція для відправки запиту
 export const addProduct = async () => {
   const newProduct = {
-    id: Date.now(), // Генерація унікального id
+    id: Date.now(),
     serialNumber: 1234,
     isItNew: 1,
     photo: "pathToFile.jpg",
@@ -32,18 +31,11 @@ export const addProduct = async () => {
 };
 
 export const getProducts = async () => {
-  console.log("--- apiUrl ---");
-  console.log(apiUrl);
-  console.log("------MONGODB_URI-------");
-  console.log(process.env.MONGODB_URI);
-  console.log("------+-------");
-
   console.log("Fetching products...");
   try {
-    // Відправка GET запиту на сервер для отримання всіх продуктів
     const response = await axios.get(`${apiUrl}getproducts`);
     console.log("Fetched products:", response.data);
-    return response.data; // Повертаємо отримані продукти
+    return response.data;
   } catch (error) {
     console.error("Error fetching products", error);
   }

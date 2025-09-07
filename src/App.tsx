@@ -1,4 +1,3 @@
-import "./App.css";
 import { addProduct } from "./app";
 import ProductList from "./components/products_list";
 import packageInfo from "../package.json";
