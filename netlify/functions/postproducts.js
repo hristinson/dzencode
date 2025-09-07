@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
+import Product from "../models/index.js";
 
-// Підключення до бази даних
 const connectToDatabase = async () => {
   if (!process.env.MONGODB_URI) {
     throw new Error("MONGODB_URI не задано! Перевірте ваш .env файл.");
@@ -16,50 +16,12 @@ const connectToDatabase = async () => {
   await mongoose.connect(process.env.MONGODB_URI);
 };
 
-// Схема продукту
-const productSchema = new mongoose.Schema({
-  id: Number,
-  serialNumber: Number,
-  isItNew: Number,
-  photo: String,
-  title: String,
-  type: String,
-  specification: String,
-  guarantee: {
-    start: Date,
-    end: Date,
-  },
-  price: [
-    {
-      value: Number,
-      symbol: String,
-      isDefault: Number,
-    },
-  ],
-  order: Number,
-  date: Date,
-});
-
-// Перевірка чи модель вже існує
-const Product =
-  mongoose.models.Product ||
-  mongoose.model("Product", productSchema, "products");
-
 export const handler = async (event, context) => {
-  //   if (event.httpMethod !== "POST") {
-  //     return {
-  //       statusCode: 405,
-  //       body: JSON.stringify({ error: "Method Not Allowed. Use POST." }),
-  //     };
-  //   }
-
   try {
-    // Чекаємо на підключення до БД
     await connectToDatabase();
 
-    // Створення фейкових статичних даних
     const fakeProductData = {
-      id: 999, // Наприклад, фейковий ID
+      id: 999,
       serialNumber: 5678,
       isItNew: 1,
       photo: "fakePathToFile.jpg",
@@ -67,7 +29,7 @@ export const handler = async (event, context) => {
       type: "Monitors",
       specification: "Fake Specification",
       guarantee: {
-        start: "2022-01-01T12:00:00Z", // Статичні дати
+        start: "2022-01-01T12:00:00Z",
         end: "2023-01-01T12:00:00Z",
       },
       price: [
@@ -75,16 +37,13 @@ export const handler = async (event, context) => {
         { value: 4000, symbol: "UAH", isDefault: 0 },
       ],
       order: 1,
-      date: "2022-01-01T12:00:00Z", // Статична дата
+      date: "2022-01-01T12:00:00Z",
     };
 
-    // Створюємо новий продукт із фейковими даними
     const newProduct = new Product(fakeProductData);
 
-    // Зберігаємо новий продукт в базі даних
     await newProduct.save();
 
-    // Повертаємо успішний результат
     return {
       statusCode: 200,
       body: JSON.stringify({
