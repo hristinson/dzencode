@@ -1,10 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { getProducts, deleteProduct } from "../../app";
 import { AddProductForm } from "../form";
+import { useTranslation } from "react-i18next";
+import "./index.scss";
 
 const ProductList = (props: any) => {
+  const [idShowModal, setIsShowModal] = useState(false);
+  const closeModal = useCallback(() => {
+    setIsShowModal(false);
+    window.location.reload();
+  }, []);
+
+  const { t } = useTranslation();
   const [products, setProducts] = useState<any[]>([]);
-  // const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
@@ -28,16 +36,14 @@ const ProductList = (props: any) => {
   }, []);
 
   return (
-    <div>
-      <AddProductForm
-        showModal={props.showModal}
-        closeModal={props.closeModal}
-      />
-      <h1>Список продуктів</h1>
-      {loading && <p>Завантаження...</p>}
+    <div className="list">
+      <button onClick={() => setIsShowModal(true)}>Add</button>
+      <AddProductForm showModal={idShowModal} closeModal={closeModal} />
+      <h1>{t("products_list")}</h1>
+      {loading && <p>loading...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}{" "}
       {products && products.length === 0 && !loading && (
-        <p>Немає доступних продуктів.</p>
+        <p>{t("no_avialable_products")}</p>
       )}
       <ul>
         {products &&

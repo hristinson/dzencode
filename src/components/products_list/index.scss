@@ -1,0 +1,7 @@
+/* Центральний контент, що займає весь вільний простір */
+.list {
+  flex-grow: 1; /* Займає весь вільний простір */
+  background-color: #f4f4f4;
+  padding: 20px;
+  text-align: center;
+}

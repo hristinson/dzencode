@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { addProduct } from "../../app";
+import { newProduct } from "../../models";
 
 interface AddProductFormProps {
   showModal: boolean;
@@ -7,8 +8,7 @@ interface AddProductFormProps {
 }
 
 export const AddProductForm = (props: AddProductFormProps) => {
-  const [productData, setProductData] = useState({
-    id: Date.now(),
+  const [productData, setProductData] = useState<newProduct>({
     serialNumber: "",
     isItNew: "",
     photo: "",
@@ -23,7 +23,6 @@ export const AddProductForm = (props: AddProductFormProps) => {
       { value: "", symbol: "USD", isDefault: 1 },
       { value: "", symbol: "UAH", isDefault: 0 },
     ],
-    order: 1,
     date: new Date().toISOString(),
   });
 
@@ -136,28 +135,20 @@ export const AddProductForm = (props: AddProductFormProps) => {
             type="number"
             name="price[0].value"
             value={productData.price[0].value}
-            onChange={(e) => {
-              const newPrice = [...productData.price];
-              setProductData({ ...productData, price: newPrice });
-            }}
-          />
-        </div>
-        <div>
-          <label>Order:</label>
-          <input
-            type="number"
-            name="order"
-            value={productData.order}
             onChange={handleChange}
           />
         </div>
+
         <button type="submit" disabled={loading}>
           {loading ? "Додається..." : "Додати продукт"}
         </button>
         <button
           type="submit"
           disabled={loading}
-          onClick={() => props.closeModal()}
+          onClick={(e) => {
+            e.preventDefault();
+            props.closeModal();
+          }}
         >
           {"Close"}
         </button>

@@ -1,26 +1,8 @@
 import axios from "axios";
+import { newProduct } from "../models";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export const addProduct = async (productData: Record<string, any>) => {
-  type newProduct = {
-    id: any;
-    serialNumber: string;
-    isItNew: 1;
-    photo: string;
-    title: string;
-    type: string;
-    specification: string;
-    guarantee: {
-      start: any;
-      end: any;
-    };
-    price: [
-      { value: number; symbol: "USD"; isDefault: 1 },
-      { value: number; symbol: "UAH"; isDefault: 0 }
-    ];
-    order: 1;
-    date: any;
-  };
   try {
     const response = await axios.post(
       `${apiUrl}postproducts`,
@@ -46,12 +28,8 @@ export const getProducts = async () => {
 export const deleteProduct = async (productId: string) => {
   try {
     const response = await axios.delete(`${apiUrl}deleteproduct`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: {
-        _id: productId, // Надсилаємо ID продукту для видалення
-      },
+      headers: { "Content-Type": "application/json" },
+      data: { _id: productId },
     });
     console.log("Product deleted successfully:", response.data);
   } catch (error) {

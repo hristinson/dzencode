@@ -25,7 +25,6 @@ export const handler = async (event, context) => {
   try {
     await connectToDatabase();
     const {
-      id,
       serialNumber,
       isItNew,
       photo,
@@ -38,15 +37,14 @@ export const handler = async (event, context) => {
       date,
     } = JSON.parse(event.body);
 
-    if (!id || !serialNumber || !title || !price) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: "Missing required fields" }),
-      };
-    }
+    // if (!id || !serialNumber || !title || !price) {
+    //   return {
+    //     statusCode: 400,
+    //     body: JSON.stringify({ error: "Missing required fields" }),
+    //   };
+    // }
 
     const newProduct = new Product({
-      id,
       serialNumber,
       isItNew,
       photo,

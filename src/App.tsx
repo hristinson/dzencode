@@ -1,21 +1,16 @@
+import "./i18n";
 import ProductList from "./components/products_list";
-import packageInfo from "../package.json";
 import { useCallback, useState } from "react";
+import Header from "./components/header";
+import Footer from "./components/footer";
+import "./index.scss";
 
 const App = () => {
-  const [showModal, setShowModal] = useState(false);
-  const closeModal = useCallback(() => {
-    setShowModal(false);
-    window.location.reload();
-  }, []);
-
   return (
     <div className="App">
-      <header className="App-header">
-        <p>Frontend {packageInfo.version}</p>
-        <ProductList showModal={showModal} closeModal={closeModal} />
-        <button onClick={() => setShowModal(true)}>Add</button>
-      </header>
+      <Header />
+      <ProductList />
+      <Footer />
     </div>
   );
 };
