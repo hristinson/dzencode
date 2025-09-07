@@ -32,6 +32,10 @@ export const addProduct = async () => {
 };
 
 export const getProducts = async () => {
+  console.log("--- apiUrl ---");
+  console.log(apiUrl);
+  console.log("------+-------");
+
   console.log("Fetching products...");
   try {
     // Відправка GET запиту на сервер для отримання всіх продуктів
