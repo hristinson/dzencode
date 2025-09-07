@@ -34,6 +34,8 @@ export const addProduct = async () => {
 export const getProducts = async () => {
   console.log("--- apiUrl ---");
   console.log(apiUrl);
+  console.log("------MONGODB_URI-------");
+  console.log(process.env.MONGODB_URI);
   console.log("------+-------");
 
   console.log("Fetching products...");
