@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { getProducts, deleteProduct } from "../../app";
+import { getProducts, deleteProduct } from "../../api";
 import { AddProductForm } from "../form";
 import { useTranslation } from "react-i18next";
 import "./index.scss";

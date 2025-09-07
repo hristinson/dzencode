@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addProduct } from "../../app";
+import { addProduct } from "../../api";
 import { newProduct } from "../../models";
 
 interface AddProductFormProps {

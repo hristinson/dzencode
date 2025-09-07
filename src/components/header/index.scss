@@ -1,6 +1,42 @@
 .header {
-  height: 140px;
+  height: 80px;
   background-color: #4caf50;
   text-align: center;
   color: white;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.left {
+  width: 280px;
+  background-color: rgb(255, 255, 255);
+  padding-right: 10px;
+  color: rgb(225, 14, 14);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  svg {
+    fill: #4caf50;
+  }
+}
+.right {
+  font-size: 12px;
+  width: 100px;
+  background-color: rgb(255, 255, 255);
+  padding: 10px 0px 0px 0px;
+  color: #4caf50;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.center {
+  flex-grow: 1;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 60px 10px 0px;
+  color: rgb(53, 171, 13);
 }

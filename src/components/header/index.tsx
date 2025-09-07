@@ -1,24 +1,18 @@
 import { useTranslation } from "react-i18next";
+import { CurrentDateTime } from "../widgets";
 import "./index.scss";
+import Logo from "../images";
 
 const Header = () => {
-  const { t, i18n } = useTranslation();
-
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-  };
+  const { t } = useTranslation();
 
   return (
     <header className="header">
-      <h1>{t("welcome_message")}</h1>
-      <div>
-        <button onClick={() => changeLanguage("en")}>
-          {t("english_button")}
-        </button>
-        <button onClick={() => changeLanguage("ua")}>
-          {t("ukrainian_button")}
-        </button>
+      <div className="left">
+        <Logo />
       </div>
+      <div className="center">{t("inventory")}</div>
+      <div className="right">{CurrentDateTime()}</div>
     </header>
   );
 };
