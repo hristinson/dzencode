@@ -13,21 +13,21 @@ const ProductList = (props: any) => {
 
   const { t } = useText();
   const [products, setProducts] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
+  // const [loading, setLoading] = useState<boolean>(true);
+  // const [error, setError] = useState<string>("");
 
   const fetchProducts = async () => {
     try {
-      setLoading(true);
-      setError("");
+      // setLoading(true);
+      // setError("");
 
       const products = await getProducts();
       setProducts(products.products);
     } catch (err) {
       console.error("Error fetching products:", err);
-      setError("Не вдалося отримати продукти. Спробуйте ще раз.");
+      // setError("Не вдалося отримати продукти. Спробуйте ще раз.");
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
