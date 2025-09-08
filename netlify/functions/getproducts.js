@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
+import Product from "../models/index.js";
 import dotenv from "dotenv";
 dotenv.config();
-import Product from "../models/index.js";
 
 const connectToDatabase = async () => {
   if (!process.env.MONGODB_URI) {

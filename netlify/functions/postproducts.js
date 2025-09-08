@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
+import Product from "../models/index.js";
 import dotenv from "dotenv";
 dotenv.config();
-import Product from "../models/index.js";
 
 const connectToDatabase = async () => {
   if (!process.env.MONGODB_URI) {
-    throw new Error("Error: MONGODB_URI не задано!");
+    throw new Error("Error: MONGODB_URI not found!");
   }
 
   if (mongoose.connections[0].readyState) {
@@ -36,13 +36,6 @@ export const handler = async (event, context) => {
       order,
       date,
     } = JSON.parse(event.body);
-
-    // if (!id || !serialNumber || !title || !price) {
-    //   return {
-    //     statusCode: 400,
-    //     body: JSON.stringify({ error: "Missing required fields" }),
-    //   };
-    // }
 
     const newProduct = new Product({
       serialNumber,

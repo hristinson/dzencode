@@ -1,12 +1,11 @@
-// netlify/functions/deleteproduct.js
 import mongoose from "mongoose";
+import Product from "../models/index.js";
 import dotenv from "dotenv";
 dotenv.config();
-import Product from "../models/index.js";
 
 const connectToDatabase = async () => {
   if (!process.env.MONGODB_URI) {
-    throw new Error("Error: MONGODB_URI не задано!");
+    throw new Error("Error: MONGODB_URI not found!");
   }
 
   if (mongoose.connections[0].readyState) {
@@ -33,10 +32,7 @@ export const handler = async (event, context) => {
         body: JSON.stringify({ error: "Missing product ID" }),
       };
     }
-
-    // Використовуємо метод Mongoose для видалення продукту
     const deletedProduct = await Product.findByIdAndDelete(_id);
-
     if (!deletedProduct) {
       return {
         statusCode: 404,
