@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { addProduct } from "../../api";
 import { newProduct } from "../../models";
 import useText from "../../lib/useText";
+import { deleteProduct } from "../../api";
 import "./index.scss";
 
-interface AddProductFormProps {
+interface ProductFormProps {
   showModal: boolean;
   closeModal: () => void;
+  id?: string;
 }
 
-export const AddProductForm = (props: AddProductFormProps) => {
+export const AddProductForm = (props: ProductFormProps) => {
   const { t } = useText();
   const [productData, setProductData] = useState<newProduct>({
     serialNumber: "",
@@ -201,6 +203,40 @@ export const AddProductForm = (props: AddProductFormProps) => {
         </form>
 
         {error && <p style={{ color: "red" }}>{error}</p>}
+      </dialog>
+    </div>
+  );
+};
+
+export const DeleteProductForm = (props: ProductFormProps) => {
+  const { t } = useText();
+  return (
+    <div>
+      {props.showModal && <div className="modal-backdrop fade show"></div>}
+      <dialog open={props.showModal} className="dialog">
+        <h4 className="modal-title text-center mb-4">{t("are_you_sure")}</h4>
+        <button
+          type="submit"
+          className="btn btn-danger btn-sm my-btn me-2"
+          onClick={(e) => {
+            props.id && deleteProduct(props.id);
+            e.preventDefault();
+            props.closeModal();
+          }}
+        >
+          <i className="bi bi-trash"></i> Delete
+        </button>
+
+        <button
+          className="btn btn-secondary btn-sm my-btn"
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            props.closeModal();
+          }}
+        >
+          <i className="bi bi-x-circle"></i> Close
+        </button>
       </dialog>
     </div>
   );

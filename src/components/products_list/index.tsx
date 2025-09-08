@@ -1,11 +1,13 @@
 import { useEffect, useState, useCallback } from "react";
 import { getProducts, deleteProduct } from "../../api";
-import { AddProductForm } from "../form";
+import { AddProductForm, DeleteProductForm } from "../form";
 import useText from "../../lib/useText";
 import "./index.scss";
 
 const ProductList = (props: any) => {
   const [idShowModal, setIsShowModal] = useState(false);
+  const [isShowDelete, setIsShowDelete] = useState(false);
+  const [deletedProductId, setDeletedProductId] = useState("");
   const closeModal = useCallback(() => {
     setIsShowModal(false);
     window.location.reload();
@@ -31,6 +33,13 @@ const ProductList = (props: any) => {
     }
   };
 
+  // const deleteProdutc = useCallback((product) => {
+  //   async () => {
+  //     await deleteProduct(product._id);
+  //     window.location.reload();
+  //   };
+  // }, []);
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -38,52 +47,63 @@ const ProductList = (props: any) => {
   return (
     <>
       <AddProductForm showModal={idShowModal} closeModal={closeModal} />
-      <div className="list list-group">
-        <div className="add-button-container">
-          <button
-            onClick={() => setIsShowModal(true)}
-            className="btn btn-success btn-sm"
-          >
-            Add
-          </button>
-        </div>
-        <div className="list-group-item list-group-item-action list-my">
-          <div>{t("date")}</div>
-          <div>{t("title")}</div>
-          <div>{t("type")}</div>
-          <div>{t("specification")}</div>
-          <div>{t("guarantie_start")}</div>
-          <div>{t("guarantie_end")}</div>
-          <div>{t("serial")}</div>
-          <div>{t("specifitation")}</div>
-          <div></div>
-        </div>
-        {products &&
-          products.map((product) => {
-            return (
-              <div className="list-group-item list-group-item-action list-my">
-                <div>{product.date}</div>
-                <div>{product.title}</div>
-                <div>{product.type}</div>
-                <div>{product.specification}</div>
-                <div>{product.guarantee.start}</div>
-                <div>{product.guarantee.end}</div>
-                <div>{product.serialNumber}</div>
-                <div>{product.specification}</div>
+      <DeleteProductForm
+        showModal={isShowDelete}
+        closeModal={closeModal}
+        id={deletedProductId}
+      />
+      <div className="add-button-container">
+        <button
+          onClick={() => setIsShowModal(true)}
+          className="btn btn-success btn-sm"
+        >
+          Add
+        </button>
+      </div>
 
-                <button
-                  type="button"
-                  className="btn btn-success btn-sm"
-                  onClick={async () => {
-                    await deleteProduct(product._id);
-                    window.location.reload();
-                  }}
-                >
-                  Видалити
-                </button>
-              </div>
-            );
-          })}
+      <div className="table-responsive list">
+        <table className="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>{t("title")}</th>
+              <th>{t("type")}</th>
+              <th>{t("specification")}</th>
+              <th>{t("guarantie_start")}</th>
+              <th>{t("guarantie_end")}</th>
+              <th>{t("serial")}</th>
+              <th>{t("specifitation")}</th>
+              <th>{t("price_usd")}</th>
+              <th></th> {/* Для кнопки "Видалити" */}
+            </tr>
+          </thead>
+          <tbody>
+            {products &&
+              products.map((product) => (
+                <tr key={product._id}>
+                  <td>{product.title}</td>
+                  <td>{product.type}</td>
+                  <td>{product.specification}</td>
+                  <td>{product.guarantee.start}</td>
+                  <td>{product.guarantee.end}</td>
+                  <td>{product.serialNumber}</td>
+                  <td>{product.specification}</td>
+                  <td>{product.price[0].value}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn btn-danger btn-sm"
+                      onClick={() => {
+                        setDeletedProductId(product._id);
+                        setIsShowDelete(true);
+                      }}
+                    >
+                      x
+                    </button>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </div>
     </>
   );

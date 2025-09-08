@@ -5,5 +5,16 @@
   "inventory": "INVENTORY",
   "please_input_data": "Please input data",
   "adding": "Adding...",
-  "add_new_product": "Add a new product"
+  "add_new_product": "Add a new product",
+  "date": "Date",
+  "title": "Title",
+  "type": "Type",
+  "specification": "Specification",
+  "guarantie_start": "Guarantie (start date)",
+  "guarantie_end": "Guarantie (end date)",
+  "serial": "Serial",
+  "specifitation": "Specifitation",
+  "price": "Price",
+  "price_usd": "Price (USD)",
+  "are_you_sure": "Are you sure?"
 }
