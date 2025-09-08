@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { getProducts, deleteProduct } from "../../api";
+import { getProducts } from "../../api";
 import { AddProductForm, DeleteProductForm } from "../form";
 import useText from "../../lib/useText";
 import "./index.scss";
