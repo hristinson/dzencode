@@ -1,4 +1,3 @@
-import "./i18n";
 import ProductList from "./components/products_list";
 import Header from "./components/header";
 import Footer from "./components/footer";

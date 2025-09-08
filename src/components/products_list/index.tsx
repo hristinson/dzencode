@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { getProducts, deleteProduct } from "../../api";
 import { AddProductForm } from "../form";
-import { useTranslation } from "react-i18next";
+import useText from "../../lib/useText";
 import "./index.scss";
 
 const ProductList = (props: any) => {
@@ -11,7 +11,7 @@ const ProductList = (props: any) => {
     window.location.reload();
   }, []);
 
-  const { t } = useTranslation();
+  const { t } = useText();
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");

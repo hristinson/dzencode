@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { addProduct } from "../../api";
 import { newProduct } from "../../models";
-import { useTranslation } from "react-i18next";
+import useText from "../../lib/useText";
 import "./index.scss";
 
 interface AddProductFormProps {
@@ -10,7 +10,7 @@ interface AddProductFormProps {
 }
 
 export const AddProductForm = (props: AddProductFormProps) => {
-  const { t } = useTranslation();
+  const { t } = useText();
   const [productData, setProductData] = useState<newProduct>({
     serialNumber: "",
     isItNew: "",
