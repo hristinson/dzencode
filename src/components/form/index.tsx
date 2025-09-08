@@ -15,7 +15,7 @@ export const AddProductForm = (props: ProductFormProps) => {
   const { t } = useText();
   const [productData, setProductData] = useState<newProduct>({
     serialNumber: "",
-    isItNew: "",
+    isItNew: false,
     photo: "test.jpg",
     title: "",
     type: "",
@@ -37,6 +37,12 @@ export const AddProductForm = (props: ProductFormProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     switch (name) {
+      case "isItNew":
+        setProductData({
+          ...productData,
+          isItNew: !productData.isItNew,
+        });
+        break;
       case "guaranteeStart":
         setProductData({
           ...productData,
@@ -82,7 +88,7 @@ export const AddProductForm = (props: ProductFormProps) => {
       await addProduct(productData);
       props.closeModal();
     } catch (err) {
-      setError("Помилка при додаванні продукту");
+      setError("Error adding produtc");
       console.error("Error:", err);
     }
     props.closeModal();
@@ -97,27 +103,6 @@ export const AddProductForm = (props: ProductFormProps) => {
         <form onSubmit={handleSubmit} className="modal-content">
           <div className="container">
             <div>
-              <div className="form-group">
-                <label>Serial Number:</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="serialNumber"
-                  value={productData.serialNumber}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <label>Is it New:</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="isItNew"
-                  value={productData.isItNew}
-                  onChange={handleChange}
-                />
-              </div>
-
               <div>
                 <label>Title:</label>
                 <input
@@ -137,6 +122,28 @@ export const AddProductForm = (props: ProductFormProps) => {
                   value={productData.type}
                   onChange={handleChange}
                 />
+              </div>
+              <div className="form-group">
+                <label>Serial Number:</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="serialNumber"
+                  value={productData.serialNumber}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="form-group pt-3">
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    name="isItNew"
+                    checked={productData.isItNew}
+                    onChange={handleChange}
+                  />
+                  <label className="form-check-label">Is it New?</label>
+                </div>
               </div>
             </div>
             <div>

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema({
   serialNumber: String,
-  isItNew: String,
+  isItNew: Boolean,
   photo: String,
   title: String,
   type: String,

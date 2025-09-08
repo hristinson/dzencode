@@ -2,9 +2,10 @@ import { useEffect, useState, useCallback } from "react";
 import { getProducts } from "../../api";
 import { AddProductForm, DeleteProductForm } from "../form";
 import useText from "../../lib/useText";
+import Loader from "../loader";
 import "./index.scss";
 
-const ProductList = (props: any) => {
+const ProductList = () => {
   const [idShowModal, setIsShowModal] = useState(false);
   const [isShowDelete, setIsShowDelete] = useState(false);
   const [deletedProductId, setDeletedProductId] = useState("");
@@ -15,30 +16,19 @@ const ProductList = (props: any) => {
 
   const { t } = useText();
   const [products, setProducts] = useState<any[]>([]);
-  // const [loading, setLoading] = useState<boolean>(true);
-  // const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchProducts = async () => {
     try {
-      // setLoading(true);
-      // setError("");
-
+      setLoading(true);
       const products = await getProducts();
       setProducts(products.products);
     } catch (err) {
       console.error("Error fetching products:", err);
-      // setError("Не вдалося отримати продукти. Спробуйте ще раз.");
     } finally {
-      // setLoading(false);
+      setLoading(false);
     }
   };
-
-  // const deleteProdutc = useCallback((product) => {
-  //   async () => {
-  //     await deleteProduct(product._id);
-  //     window.location.reload();
-  //   };
-  // }, []);
 
   useEffect(() => {
     fetchProducts();
@@ -46,6 +36,7 @@ const ProductList = (props: any) => {
 
   return (
     <>
+      {loading && <Loader />}
       <AddProductForm showModal={idShowModal} closeModal={closeModal} />
       <DeleteProductForm
         showModal={isShowDelete}
@@ -73,7 +64,8 @@ const ProductList = (props: any) => {
               <th>{t("serial")}</th>
               <th>{t("specifitation")}</th>
               <th>{t("price_usd")}</th>
-              <th></th> {/* Для кнопки "Видалити" */}
+              <th>{t("is_new_product")}</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -89,15 +81,22 @@ const ProductList = (props: any) => {
                   <td>{product.specification}</td>
                   <td>{product.price[0].value}</td>
                   <td>
+                    {!!product.isItNew ? (
+                      <span className="text-success">&#10003;</span>
+                    ) : (
+                      <span className="text-danger">&#10007;</span>
+                    )}
+                  </td>
+                  <td>
                     <button
                       type="button"
-                      className="btn btn-danger btn-sm"
+                      className="btn  btn-light btn-sm"
                       onClick={() => {
                         setDeletedProductId(product._id);
                         setIsShowDelete(true);
                       }}
                     >
-                      x
+                      <span className="text-danger">&#10007;</span>
                     </button>
                   </td>
                 </tr>

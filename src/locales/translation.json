@@ -16,5 +16,6 @@
   "specifitation": "Specifitation",
   "price": "Price",
   "price_usd": "Price (USD)",
-  "are_you_sure": "Are you sure?"
+  "are_you_sure": "Are you sure?",
+  "is_new_product": "New product"
 }

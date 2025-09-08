@@ -1,6 +1,6 @@
 export type newProduct = {
   serialNumber: string;
-  isItNew: string;
+  isItNew: boolean;
   photo: string;
   title: string;
   type: string;
