@@ -5,6 +5,7 @@ export type newProduct = {
   title: string;
   type: string;
   specification: string;
+  incoming: string;
   guarantee: {
     start: any;
     end: any;
@@ -13,5 +14,12 @@ export type newProduct = {
     { value: number; symbol: "USD"; isDefault: 1 },
     { value: number; symbol: "UAH"; isDefault: 0 }
   ];
+  date: any;
+};
+
+export type newIncoming = {
+  _id?: string;
+  name: string;
+  isItNew: boolean;
   date: any;
 };

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Product } from "../models/index.js";
+import { Incoming } from "../models/index.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -14,31 +14,24 @@ const connectToDatabase = async () => {
   await mongoose.connect(process.env.MONGODB_URI);
 };
 
-export const handler = async (event) => {
+export const handler = async () => {
   try {
     await connectToDatabase();
 
-    const { searchByIncoming } = event.queryStringParameters || {};
-
-    let products;
-    if (searchByIncoming) {
-      products = await Product.find({ incoming: searchByIncoming });
-    } else {
-      products = await Product.find();
-    }
+    const incomings = await Incoming.find();
 
     return {
       statusCode: 200,
       body: JSON.stringify({
-        message: "Products fetched successfully",
-        products: products,
+        message: "Incomings fetched successfully",
+        incomings: incomings,
       }),
     };
   } catch (error) {
     return {
       statusCode: 500,
       body: JSON.stringify({
-        error: error.message || "Failed to fetch products",
+        error: error.message || "Failed to fetch incomings",
       }),
     };
   }

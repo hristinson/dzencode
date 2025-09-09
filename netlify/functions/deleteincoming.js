@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Product } from "../models/index.js";
+import { Incoming } from "../models/index.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -29,22 +29,22 @@ export const handler = async (event) => {
     if (!_id) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: "Missing product ID" }),
+        body: JSON.stringify({ error: "Missing incoming ID" }),
       };
     }
-    const deletedProduct = await Product.findByIdAndDelete(_id);
-    if (!deletedProduct) {
+    const deletedIncoming = await Incoming.findByIdAndDelete(_id);
+    if (!deletedIncoming) {
       return {
         statusCode: 404,
-        body: JSON.stringify({ error: "Product not found" }),
+        body: JSON.stringify({ error: "Incoming not found" }),
       };
     }
 
     return {
       statusCode: 200,
       body: JSON.stringify({
-        message: "Product deleted successfully",
-        product: deletedProduct,
+        message: "Incoming deleted successfully",
+        incoming: deletedIncoming,
       }),
     };
   } catch (error) {

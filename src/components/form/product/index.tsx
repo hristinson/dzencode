@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { addProduct } from "../../api";
-import { newProduct } from "../../models";
-import useText from "../../lib/useText";
-import { deleteProduct } from "../../api";
+import React, { useState, useEffect } from "react";
+import { addProduct } from "../../../api";
+import { newProduct, newIncoming } from "../../../models";
+import useText from "../../../lib/useText";
+import { deleteProduct } from "../../../api";
+import { getIncomings } from "../../../api";
 import "./index.scss";
 
 interface ProductFormProps {
@@ -13,6 +14,13 @@ interface ProductFormProps {
 
 export const AddProductForm = (props: ProductFormProps) => {
   const { t } = useText();
+  const [incomings, setIncomings] = useState<newIncoming[]>([
+    {
+      name: "",
+      isItNew: false,
+      date: undefined,
+    },
+  ]);
   const [productData, setProductData] = useState<newProduct>({
     serialNumber: "",
     isItNew: false,
@@ -20,6 +28,7 @@ export const AddProductForm = (props: ProductFormProps) => {
     title: "",
     type: "",
     specification: "",
+    incoming: "",
     guarantee: {
       start: new Date().toISOString(),
       end: new Date().toISOString(),
@@ -31,10 +40,18 @@ export const AddProductForm = (props: ProductFormProps) => {
     date: new Date().toISOString(),
   });
 
+  useEffect(() => {
+    const inData = async () => await getIncomings();
+    inData().then((incomings) => setIncomings(incomings.incomings));
+  }, []);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setError(null);
     const { name, value } = e.target;
     switch (name) {
       case "isItNew":
@@ -83,6 +100,18 @@ export const AddProductForm = (props: ProductFormProps) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+
+    if (productData.title.trim() === "") {
+      setLoading(false);
+      setError("Please enter Title");
+      return;
+    }
+
+    if (productData.incoming.trim() === "") {
+      setLoading(false);
+      setError("Please select Incoming Manager");
+      return;
+    }
 
     try {
       await addProduct(productData);
@@ -187,8 +216,23 @@ export const AddProductForm = (props: ProductFormProps) => {
                   onChange={handleChange}
                 />
               </div>
+              <select
+                className="form-control"
+                name="incoming"
+                value={productData.incoming}
+                onChange={handleChange}
+              >
+                <option value="">Select Incoming</option>
+                {incomings &&
+                  incomings.map((incoming) => (
+                    <option key={incoming && incoming._id} value={incoming._id}>
+                      {incoming.name}
+                    </option>
+                  ))}
+              </select>
             </div>
           </div>
+          {error && <p style={{ color: "red" }}>{error}</p>}
           <button
             type="submit"
             disabled={loading}
@@ -208,8 +252,6 @@ export const AddProductForm = (props: ProductFormProps) => {
             {"Close"}
           </button>
         </form>
-
-        {error && <p style={{ color: "red" }}>{error}</p>}
       </dialog>
     </div>
   );

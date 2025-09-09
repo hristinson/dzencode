@@ -7,8 +7,9 @@ const Footer = () => {
 
   return (
     <footer className="footer">
-      <p>{t("footer_text")}</p>
-      <p>{packageInfo.version}</p>
+      <p>
+        {t("footer_text")} {packageInfo.version}
+      </p>
     </footer>
   );
 };

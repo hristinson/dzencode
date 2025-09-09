@@ -1,11 +1,15 @@
 import { useEffect, useState, useCallback } from "react";
-import { getProducts } from "../../api";
-import { AddProductForm, DeleteProductForm } from "../form";
+import { getProducts, getIncoming } from "../../api";
+import { AddProductForm, DeleteProductForm } from "../form/product";
 import useText from "../../lib/useText";
 import Loader from "../loader";
 import "./index.scss";
+import { useLocation } from "react-router-dom";
 
 const ProductList = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const searchByIncoming = queryParams.get("searchByIncoming");
   const [idShowModal, setIsShowModal] = useState(false);
   const [isShowDelete, setIsShowDelete] = useState(false);
   const [deletedProductId, setDeletedProductId] = useState("");
@@ -17,11 +21,30 @@ const ProductList = () => {
   const { t } = useText();
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [incomingName, setIncomingName] = useState<string>();
 
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const products = await getProducts();
+      let products;
+      let incoming;
+
+      if (searchByIncoming) {
+        products = await getProducts(searchByIncoming);
+        incoming = await getIncoming(searchByIncoming);
+        setIncomingName(incoming.incoming[0].name);
+      } else {
+        products = await getProducts(null);
+      }
+      // const products = searchByIncoming
+      //   ? await getProducts(searchByIncoming)
+      //   : await getProducts(null);
+
+      // const incoming = searchByIncoming
+      //   ? await getIncoming(searchByIncoming)
+      //   : null;
+      // setIncomingName(incoming.incoming[0].name);
+
       setProducts(products.products);
     } catch (err) {
       console.error("Error fetching products:", err);
@@ -32,6 +55,7 @@ const ProductList = () => {
 
   useEffect(() => {
     fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -43,7 +67,19 @@ const ProductList = () => {
         closeModal={closeModal}
         id={deletedProductId}
       />
-      <div className="add-button-container">
+      <div className="add-product-button-container">
+        {searchByIncoming && (
+          <p
+            style={{
+              color: "red",
+              display: "flex",
+              justifyContent: "center",
+              width: "100%",
+            }}
+          >
+            View only products by {incomingName}
+          </p>
+        )}
         <button
           onClick={() => setIsShowModal(true)}
           className="btn btn-success btn-sm"

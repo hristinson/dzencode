@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-export const handler = async (event, context) => {
+export const handler = async () => {
   return {
     statusCode: 200,
     body: JSON.stringify({ result: process.env.MONGODB_URI }),

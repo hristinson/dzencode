@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Product } from "../models/index.js";
+import { Incoming } from "../models/index.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -24,47 +24,29 @@ export const handler = async (event) => {
 
   try {
     await connectToDatabase();
-    const {
-      serialNumber,
-      isItNew,
-      photo,
-      title,
-      type,
-      specification,
-      guarantee,
-      price,
-      order,
-      date,
-      incoming,
-    } = JSON.parse(event.body);
+    const { name, isItNew, date } = JSON.parse(event.body);
 
-    const newProduct = new Product({
-      serialNumber,
+    const newIncoming = new Incoming({
+      name,
       isItNew,
-      photo,
-      title,
-      type,
-      specification,
-      guarantee,
-      price,
-      order,
       date,
-      incoming,
     });
 
-    await newProduct.save();
+    await newIncoming.save();
     return {
       statusCode: 200,
       body: JSON.stringify({
-        message: "Product added successfully",
-        product: newProduct,
+        message: "Incoming added successfully",
+        incoming: newIncoming,
       }),
     };
   } catch (error) {
     console.error("Error:", error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: error.message || "Failed to add product" }),
+      body: JSON.stringify({
+        error: error.message || "Failed to add incoming",
+      }),
     };
   }
 };

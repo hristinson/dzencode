@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+// Shema for Products category
 const productSchema = new mongoose.Schema({
   serialNumber: String,
   isItNew: Boolean,
@@ -7,6 +7,7 @@ const productSchema = new mongoose.Schema({
   title: String,
   type: String,
   specification: String,
+  incoming: String,
   guarantee: {
     start: Date,
     end: Date,
@@ -24,4 +25,13 @@ const productSchema = new mongoose.Schema({
 
 const Product = mongoose.model("Product", productSchema, "products");
 
-export default Product;
+// Shema for Incoming category
+const incomingSchema = new mongoose.Schema({
+  name: String,
+  isItNew: Boolean,
+  date: Date,
+});
+
+const Incoming = mongoose.model("Incoming", incomingSchema, "incoming");
+
+export { Product, Incoming };

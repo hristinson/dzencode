@@ -1,0 +1,21 @@
+.home-page {
+  overflow-x: hidden;
+}
+
+.home {
+  font-size: 2rem;
+  text-align: center;
+  animation: slideInHome 1s ease-out forwards;
+  color: rgb(83, 103, 37);
+}
+
+@keyframes slideInHome {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

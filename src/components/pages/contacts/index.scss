@@ -1,0 +1,21 @@
+.contacts-page {
+  overflow-x: hidden;
+}
+
+.contacts {
+  font-size: 2rem;
+  text-align: center;
+  animation: slideInContacts 1s ease-out forwards;
+  color: rgb(83, 103, 37);
+}
+
+@keyframes slideInContacts {
+  0% {
+    transform: translateX(-100%); /* Початок анімації з правого боку */
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0); /* Кінець анімації в центрі */
+    opacity: 1;
+  }
+}
