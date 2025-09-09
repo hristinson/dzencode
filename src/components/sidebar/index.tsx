@@ -2,6 +2,10 @@ import { Link } from "react-router-dom";
 import "./index.scss";
 
 const Sidebar = () => {
+  const handleClickproducts = () => {
+    window.location.href = "/products";
+  };
+
   return (
     <div className="sidebar">
       <ul>
@@ -9,7 +13,9 @@ const Sidebar = () => {
           <Link to="/">Main</Link>
         </li>
         <li>
-          <Link to="/products">Products</Link>
+          <Link to="/products" onClick={handleClickproducts}>
+            Products
+          </Link>
         </li>
         <li>
           <Link to="/incoming">Incoming</Link>

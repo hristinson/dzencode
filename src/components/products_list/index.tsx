@@ -36,15 +36,6 @@ const ProductList = () => {
       } else {
         products = await getProducts(null);
       }
-      // const products = searchByIncoming
-      //   ? await getProducts(searchByIncoming)
-      //   : await getProducts(null);
-
-      // const incoming = searchByIncoming
-      //   ? await getIncoming(searchByIncoming)
-      //   : null;
-      // setIncomingName(incoming.incoming[0].name);
-
       setProducts(products.products);
     } catch (err) {
       console.error("Error fetching products:", err);
