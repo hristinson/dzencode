@@ -90,3 +90,14 @@ export const getIncoming = async (id: string) => {
     console.error("Error fetching incomings", error);
   }
 };
+
+export const getProduct = async (id: string) => {
+  console.log("Fetching product...");
+  try {
+    const response = await axios.get(`${apiUrl}getproduct?id=${id}`);
+    console.log("Fetched product:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching product", error);
+  }
+};

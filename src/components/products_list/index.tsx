@@ -5,12 +5,16 @@ import useText from "../../lib/useText";
 import Loader from "../loader";
 import "./index.scss";
 import { useLocation } from "react-router-dom";
+import Product from "../pages/product";
 
 const ProductList = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const searchByIncoming = queryParams.get("searchByIncoming");
-  const [idShowModal, setIsShowModal] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
+  const [isShowProductModal, setisShowProductModal] = useState<
+    string | boolean
+  >(false);
   const [isShowDelete, setIsShowDelete] = useState(false);
   const [deletedProductId, setDeletedProductId] = useState("");
   const closeModal = useCallback(() => {
@@ -52,17 +56,22 @@ const ProductList = () => {
   return (
     <>
       {loading && <Loader />}
-      <AddProductForm showModal={idShowModal} closeModal={closeModal} />
+      <Product
+        closeModal={() => setisShowProductModal(false)}
+        showModal={!!isShowProductModal}
+        id={isShowProductModal}
+      />
+      <AddProductForm showModal={isShowModal} closeModal={closeModal} />
       <DeleteProductForm
         showModal={isShowDelete}
         closeModal={closeModal}
         id={deletedProductId}
       />
       <div className="add-product-button-container">
-        {searchByIncoming && (
+        {searchByIncoming && incomingName && (
           <p
             style={{
-              color: "red",
+              color: "#74a677",
               display: "flex",
               justifyContent: "center",
               width: "100%",
@@ -98,7 +107,13 @@ const ProductList = () => {
           <tbody>
             {products &&
               products.map((product) => (
-                <tr key={product._id}>
+                <tr
+                  key={product._id}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setisShowProductModal(product._id);
+                  }}
+                >
                   <td>{product.title}</td>
                   <td>{product.type}</td>
                   <td>{product.specification}</td>
@@ -111,10 +126,15 @@ const ProductList = () => {
                     {!!product.isItNew ? (
                       <span className="text-success">&#10003;</span>
                     ) : (
-                      <span className="text-danger">&#10007;</span>
+                      <></>
                     )}
                   </td>
-                  <td>
+                  <td
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }}
+                  >
                     <button
                       type="button"
                       className="btn  btn-light btn-sm"
