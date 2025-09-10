@@ -71,7 +71,7 @@ const ProductList = () => {
         {searchByIncoming && incomingName ? (
           <p className="info">View only products by {incomingName}</p>
         ) : (
-          <p className="info">View only All products</p>
+          <p className="info">View All products</p>
         )}
         <button
           onClick={() => setIsShowModal(true)}
