@@ -1,10 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { getIncomings } from "../../api";
-import { AddIncomingForm, DeleteIncomingForm } from "../form/";
-import useText from "../../lib/useText";
-import Loader from "../loader";
+import { getIncomings } from "../../../api";
+import { AddIncomingForm, DeleteIncomingForm } from "../../form/";
+import useText from "../../../lib/useText";
+import Loader from "../../loader";
 import "./index.scss";
 
 const IncomingsList = () => {
@@ -51,6 +51,7 @@ const IncomingsList = () => {
         id={deletedIncomingId}
       />
       <div className="add-incoming-button-container">
+        <p className="info">View All Incomings</p>
         <button
           onClick={() => setIsShowModal(true)}
           className="btn btn-success btn-sm"
@@ -77,7 +78,10 @@ const IncomingsList = () => {
                     style={{ cursor: "pointer" }}
                     onClick={() => handleRowClick(incoming._id)}
                   >
-                    <Link to={`/products?searchByIncoming=${incoming._id}`}>
+                    <Link
+                      to={`/products?searchByIncoming=${incoming._id}`}
+                      className="my-link"
+                    >
                       {incoming.name}
                     </Link>
                   </td>

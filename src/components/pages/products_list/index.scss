@@ -1,17 +1,7 @@
 .list {
-  flex-grow: 1;
   background-color: #f4f4f4;
-
   padding: 20px 20px 20px 20px;
   text-align: center;
-}
-
-.list-my {
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  width: 100%;
-  padding: 10px;
 }
 
 .add-product-button-container {
@@ -20,4 +10,11 @@
   display: flex !important;
   justify-content: flex-end;
   margin: 5px 0px 5px -20px;
+}
+
+.info {
+  color: #74a677;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }

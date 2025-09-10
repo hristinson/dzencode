@@ -1,11 +1,11 @@
 import { useEffect, useState, useCallback } from "react";
-import { getProducts, getIncoming } from "../../api";
-import { AddProductForm, DeleteProductForm } from "../form/product";
-import useText from "../../lib/useText";
-import Loader from "../loader";
+import { getProducts, getIncoming } from "../../../api";
+import { AddProductForm, DeleteProductForm } from "../../form/product";
+import useText from "../../../lib/useText";
+import Loader from "../../loader";
 import "./index.scss";
 import { useLocation } from "react-router-dom";
-import Product from "../pages/product";
+import Product from "../../pages/product";
 
 const ProductList = () => {
   const location = useLocation();
@@ -68,17 +68,10 @@ const ProductList = () => {
         id={deletedProductId}
       />
       <div className="add-product-button-container">
-        {searchByIncoming && incomingName && (
-          <p
-            style={{
-              color: "#74a677",
-              display: "flex",
-              justifyContent: "center",
-              width: "100%",
-            }}
-          >
-            View only products by {incomingName}
-          </p>
+        {searchByIncoming && incomingName ? (
+          <p className="info">View only products by {incomingName}</p>
+        ) : (
+          <p className="info">View only All products</p>
         )}
         <button
           onClick={() => setIsShowModal(true)}

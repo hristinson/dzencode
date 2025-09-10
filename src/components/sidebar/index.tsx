@@ -13,12 +13,12 @@ const Sidebar = () => {
           <Link to="/">Main</Link>
         </li>
         <li>
+          <Link to="/incoming">Incoming</Link>
+        </li>
+        <li>
           <Link to="/products" onClick={handleClickproducts}>
             Products
           </Link>
-        </li>
-        <li>
-          <Link to="/incoming">Incoming</Link>
         </li>
         <li>
           <Link to="/contacts">Contacts</Link>

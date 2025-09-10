@@ -9,6 +9,36 @@
   color: rgb(83, 103, 37);
 }
 
+.readme_container {
+  padding: 60px 0px 0px 100px;
+}
+
+.readme_incoming {
+  font-size: 1rem;
+  text-align: left;
+  animation: fadeInWatermark 3s ease-out forwards;
+  color: rgb(83, 103, 37);
+  padding-bottom: 20px;
+}
+
+.readme_product {
+  font-size: 1rem;
+  text-align: left;
+  animation: fadeInWatermark 10s ease-out forwards;
+  color: rgb(83, 103, 37);
+  padding-bottom: 20px;
+}
+
+.readme_other {
+  font-size: 1rem;
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  animation: fadeInWatermark 5s ease-out forwards;
+  animation-delay: 5s;
+  color: rgb(83, 103, 37);
+}
+
 @keyframes slideInHome {
   0% {
     transform: translateX(100%);
@@ -17,5 +47,16 @@
   100% {
     transform: translateX(0);
     opacity: 1;
+  }
+}
+
+@keyframes fadeInWatermark {
+  0% {
+    opacity: 0;
+    visibility: visible;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
   }
 }
