@@ -1,9 +1,9 @@
-import "./index.scss";
+import styles from "./index.module.scss";
 
 const Home = () => {
   return (
-    <div className="contacts-page">
-      <div className="contacts">hristinson@gmail.com</div>
+    <div className={styles.contactsPage}>
+      <div className={styles.contacts}>hristinson@gmail.com</div>
     </div>
   );
 };

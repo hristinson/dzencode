@@ -4,7 +4,6 @@ import { newProduct, newIncoming } from "../../../models";
 import useText from "../../../lib/useText";
 import { deleteProduct } from "../../../api";
 import { getIncomings } from "../../../api";
-import "./index.scss";
 
 interface ProductFormProps {
   showModal: boolean;
