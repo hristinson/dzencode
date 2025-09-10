@@ -3,7 +3,7 @@ import { getProducts, getIncoming } from "../../../api";
 import { AddProductForm, DeleteProductForm } from "../../form/product";
 import useText from "../../../lib/useText";
 import Loader from "../../loader";
-import "./index.scss";
+import styles from "./index.module.scss";
 import { useLocation } from "react-router-dom";
 import Product from "../../pages/product";
 
@@ -67,11 +67,11 @@ const ProductList = () => {
         closeModal={closeModal}
         id={deletedProductId}
       />
-      <div className="add-product-button-container">
+      <div className={styles.add_product_button_container}>
         {searchByIncoming && incomingName ? (
-          <p className="info">View only products by {incomingName}</p>
+          <p className={styles.info}>View only products by {incomingName}</p>
         ) : (
-          <p className="info">View All products</p>
+          <p className={styles.info}>View All products</p>
         )}
         <button
           onClick={() => setIsShowModal(true)}

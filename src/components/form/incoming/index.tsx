@@ -3,8 +3,6 @@ import { addIncoming } from "../../../api";
 import { newIncoming } from "../../../models";
 import useText from "../../../lib/useText";
 import { deleteIncoming } from "../../../api";
-import "./index.scss";
-
 interface IncomingFormProps {
   showModal: boolean;
   closeModal: () => void;

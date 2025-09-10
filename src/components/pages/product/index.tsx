@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./index.scss";
+import styles from "./index.module.scss";
 import { getProduct } from "../../../api";
 import { newProduct } from "../../../models";
 import Loader from "../../loader";
@@ -35,12 +35,12 @@ const Product = (props: ProductModalProps) => {
     <>
       {loading && <Loader />}
       {props.showModal && (
-        <div className="modal-overlay" onClick={props.closeModal}>
+        <div className={styles.modal_overlay} onClick={props.closeModal}>
           <div
-            className="modal-product-content"
+            className={styles.modal_product_content}
             onClick={(e) => e.stopPropagation()}
           >
-            <button className="close-button" onClick={props.closeModal}>
+            <button className={styles.close_button} onClick={props.closeModal}>
               X
             </button>
             <h2>Product Info</h2>

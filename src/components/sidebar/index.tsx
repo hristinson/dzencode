@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./index.scss";
+import styles from "./index.module.scss";
 
 const Sidebar = () => {
   const handleClickproducts = () => {
@@ -7,7 +7,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar">
+    <div className={styles.sidebar}>
       <ul>
         <li>
           <Link to="/">Main</Link>

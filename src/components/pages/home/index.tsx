@@ -1,13 +1,13 @@
-import "./index.scss";
+import styles from "./index.module.scss";
 
 const Home = () => {
   return (
-    <div className="home-page">
-      <div className="home">
+    <div className={styles.home_page}>
+      <div className={styles.home}>
         Use our service – it's the best! Other services just don't compare.
       </div>
-      <div className="readme_container">
-        <div className="readme_incoming">
+      <div className={styles.readme_container}>
+        <div className={styles.readme_incoming}>
           The <b>Incoming Menu</b> displays all incoming committers. This menu
           <br />
           allows users to keep track of all individuals or entities who are
@@ -19,7 +19,7 @@ const Home = () => {
           <br />
           be associated with the products they bring.
         </div>
-        <div className="readme_product">
+        <div className={styles.readme_product}>
           The <b>Products Menu</b> contains all the products that have been
           accounted
           <br />
@@ -31,7 +31,7 @@ const Home = () => {
           view of all products available, enabling users to track and manage
           their inventory
         </div>
-        <div className="readme_other">
+        <div className={styles.readme_other}>
           When adding a product to the system, it is essential to choose the
           <br />
           appropriate incoming entity. This selection determines where the

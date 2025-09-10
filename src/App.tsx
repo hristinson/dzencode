@@ -7,7 +7,7 @@ import Sidebar from "./components/sidebar";
 import Home from "./components/pages/home";
 import Contacts from "./components/pages/contacts";
 
-import "./index.scss";
+import "./index.css";
 
 const App: React.FC = () => {
   return (

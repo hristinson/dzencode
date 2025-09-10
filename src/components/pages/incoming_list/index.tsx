@@ -5,7 +5,7 @@ import { getIncomings } from "../../../api";
 import { AddIncomingForm, DeleteIncomingForm } from "../../form/";
 import useText from "../../../lib/useText";
 import Loader from "../../loader";
-import "./index.scss";
+import styles from "./index.module.scss";
 
 const IncomingsList = () => {
   const navigate = useNavigate();
@@ -50,8 +50,8 @@ const IncomingsList = () => {
         closeModal={closeModal}
         id={deletedIncomingId}
       />
-      <div className="add-incoming-button-container">
-        <p className="info">View All Incomings</p>
+      <div className={styles.add_incoming_button_container}>
+        <p className={styles.info}>View All Incomings</p>
         <button
           onClick={() => setIsShowModal(true)}
           className="btn btn-success btn-sm"
@@ -80,7 +80,7 @@ const IncomingsList = () => {
                   >
                     <Link
                       to={`/products?searchByIncoming=${incoming._id}`}
-                      className="my-link"
+                      className={styles.my_link}
                     >
                       {incoming.name}
                     </Link>
