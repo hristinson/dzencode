@@ -22,17 +22,17 @@ In the root folder of the project, you need to create a .env file to store sensi
 
 The .env file should include the following environment variables:
 
-# MONGODB_URI=<your_mongodb_connection_url>
+MONGODB_URI=<your_mongodb_connection_url>
 
-# REACT_APP_API_URL=http://localhost:8888/.netlify/functions/
+REACT_APP_API_URL=http://localhost:8888/.netlify/functions/
 
 MONGODB_URI: This is the MongoDB connection URL. You can get this URL from your MongoDB instance (if using MongoDB Atlas, you will find this URL in your Atlas dashboard).
 
 Example:
 
-# MONGODB_URI=mongodb+srv://username:password@cluster0.mongodb.net/database_name?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://username:password@cluster0.mongodb.net/database_name?retryWrites=true&w=majority
 
-# REACT_APP_API_URL: This is the base URL for your serverless API endpoints, typically used when deploying functions on Netlify (or any other serverless platform). It's important that the backend API can interact with the frontend, so this variable tells React where to send requests.
+REACT_APP_API_URL: This is the base URL for your serverless API endpoints, typically used when deploying functions on Netlify (or any other serverless platform). It's important that the backend API can interact with the frontend, so this variable tells React where to send requests.
 
 In this case, it's set to http://localhost:8888/.netlify/functions/, which would be valid for local development if you're running your functions locally.
 
