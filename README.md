@@ -48,5 +48,3 @@ React: For building the frontend of the application.
 Netlify functions: For the backend and server-side logic.
 MongoDB: For the database to store and manage data.
 SASS: For styles.
-
-test 23
