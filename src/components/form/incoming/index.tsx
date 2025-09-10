@@ -101,7 +101,7 @@ export const AddIncomingForm = (props: IncomingFormProps) => {
                   checked={incomingData.isItNew}
                   onChange={handleChange}
                 />
-                <label className="form-check-label">Is it New?</label>
+                <label className="form-check-label">Local Incoming</label>
               </div>
             </div>
           </div>

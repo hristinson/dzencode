@@ -19,6 +19,6 @@
   "price_usd": "Price (USD)",
   "are_you_sure": "Are you sure?",
   "is_new_product": "New product",
-  "local_incoming": "Local Incoming (yes\no)",
+  "local_incoming": "Local Incoming (yes/no)",
   "incoming_name": "Incoming Name (Manager)"
 }
